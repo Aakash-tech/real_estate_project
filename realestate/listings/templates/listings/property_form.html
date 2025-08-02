@@ -1,0 +1,15 @@
+{% extends "listings/base.html" %}
+
+{% block title %}{% if object %}Edit{% else %}Add{% endif %} Property{% endblock %}
+
+{% block content %}
+<h2>{% if object %}Edit{% else %}Add{% endif %} Property</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Save</button>
+</form>
+
+<a href="{% url 'property-list' %}">← Back</a>
+{% endblock %}

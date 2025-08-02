@@ -1,0 +1,20 @@
+{% extends "listings/base.html" %}
+
+{% block title %}{{ object.title }}{% endblock %}
+
+{% block content %}
+<h2>{{ object.title }}</h2>
+<p><strong>Location:</strong> {{ object.location }}</p>
+<p><strong>Area:</strong> {{ object.area_sqft }} sqft</p>
+<p><strong>Type:</strong> {{ object.property_type }}</p>
+<p><strong>Price:</strong> ₹{{ object.price }}</p>
+<p>{{ object.description }}</p>
+<p><em>Listed by: {{ object.listed_by.username }}</em></p>
+
+{% if user == object.listed_by %}
+    <a href="{% url 'property-update' object.pk %}">Edit</a> |
+    <a href="{% url 'property-delete' object.pk %}">Delete</a>
+{% endif %}
+
+<br><a href="{% url 'property-list' %}">← Back to list</a>
+{% endblock %}

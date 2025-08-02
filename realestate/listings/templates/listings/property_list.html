@@ -1,0 +1,18 @@
+{% extends "listings/base.html" %}
+
+{% block title %}All Properties{% endblock %}
+
+{% block content %}
+<h1>Available Properties</h1>
+<ul>
+    {% for property in properties %}
+        <li>
+            <a href="{% url 'property-detail' property.pk %}">
+                {{ property.title }} - ₹{{ property.price }} - {{ property.location }}
+            </a>
+        </li>
+    {% empty %}
+        <li>No properties available.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
