@@ -2,14 +2,13 @@ from django.db import models
 from django.contrib.auth.models import User
 
 class Property(models.Model):
-    title = models.CharField(max_length=200)
-    description = models.TextField()
-    price = models.FloatField()
-    area_sqft = models.FloatField()
     location = models.CharField(max_length=100)
-    property_type = models.CharField(max_length=50)
-    listed_by = models.ForeignKey(User, on_delete=models.CASCADE)
+    size = models.IntegerField(default=0)
+    area_sqft = models.FloatField(default=0.0)
+    bath = models.FloatField(default=0.0)
+    balcony = models.FloatField(default=0.0)
+    price = models.FloatField(default=0.0)
     created_at = models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return self.title
+        return f"{self.location} and price: {self.price}"

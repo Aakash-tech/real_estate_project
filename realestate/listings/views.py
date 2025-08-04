@@ -3,6 +3,11 @@ from .models import Property
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 
+
+from django.contrib.auth.forms import UserCreationForm
+from django.shortcuts import render, redirect
+from django.contrib import messages
+
 class PropertyListView(ListView):
     model = Property
     template_name = 'listings/property_list.html'
@@ -42,3 +47,14 @@ class PropertyDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     def test_func(self):
         property = self.get_object()
         return self.request.user == property.listed_by
+
+def register(request):
+    if request.method == 'POST':
+        form = UserCreationForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Account created successfully. You can now log in.')
+            return redirect('login')
+    else:
+        form = UserCreationForm()
+    return render(request, 'listings/register.html', {'form': form})
